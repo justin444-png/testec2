@@ -21,9 +21,9 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd /home/ec2-user/myapp   # <-- change to your project path
-            git pull origin main
+            cd /home/ec2-user/app/testec2   # <-- your project path
+            git pull origin main            # or master if default branch is master
             npm install
             npm run build
-            pm2 restart app || pm2 start dist/main.js --name "app"
+            pm2 restart testec2 || pm2 start dist/main.js --name "testec2"
           EOF
